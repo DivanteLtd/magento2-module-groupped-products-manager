@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Divante_GroupedProductsManager
+ * @author Marek Mularczyk <mmularczyk@divante.pl>
+ * @copyright 2017 Divante Sp. z o.o.
+ * @license See LICENSE_DIVANTE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <divante>
+            <grouped_products_manager>
+                <addtocart_simple>0</addtocart_simple>
+                <enable_addtocart>1</enable_addtocart>
+                <enable_attributes_visibility>1</enable_attributes_visibility>
+                <enable_outofstock>1</enable_outofstock>
+            </grouped_products_manager>
+        </divante>
+    </default>
+</config>

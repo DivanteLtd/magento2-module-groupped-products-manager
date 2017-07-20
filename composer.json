@@ -1,0 +1,29 @@
+{
+    "name": "divante/module-grouped-products-manager",
+    "description": "",
+    "license": [
+        "MIT"
+    ],
+    "authors": [
+        {
+            "name": "Marek Mularczyk",
+            "email": "mmularczyk@divante.pl"
+        }
+    ],
+    "require": {
+        "php": "~5.6.0|7.0.2|~7.0.6",
+        "magento/framework": "100.1.*",
+        "magento/module-catalog": "101.0.*",
+        "magento/module-grouped-product": "100.1.*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.4",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Divante\\GroupedProductsManager\\": ""
+        }
+    }
+}

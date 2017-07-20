@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Divante_GroupedProductsManager
+ * @author Marek Mularczyk <mmularczyk@divante.pl>
+ * @copyright 2017 Divante Sp. z o.o.
+ * @license See LICENSE_DIVANTE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="divante" translate="label" sortOrder="1">
+            <label>Divante Extensions</label>
+        </tab>
+        <section id="divante" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Grouped Products Manager</label>
+            <tab>divante</tab>
+            <resource>Divante_GroupedProductsManager::system_config</resource>
+            <group id="grouped_products_manager" translate="label" type="text" sortOrder="5" showInDefault="1" showInStore="1"
+                   showInWebsite="1">
+                <label>Settings</label>
+                <field id="enable_attributes_visibility" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInStore="1" showInWebsite="1">
+                    <label>Enable attributes in simple products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_addtocart" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInStore="1" showInWebsite="1">
+                    <label>Enable add to cart button for each simple product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="addtocart_simple" translate="label comment" type="select" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Add to cart as simple product</label>
+                    <comment>If Yes, add to cart button will add simple product. Otherwise will add product from grouped product</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_addtocart">1</field>
+                    </depends>
+                </field>
+                <field id="enable_outofstock" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInStore="1" showInWebsite="1">
+                    <label>Enable out of stock notification for each simple product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

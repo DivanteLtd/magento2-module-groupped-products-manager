@@ -1,0 +1,165 @@
+<?php
+/**
+ * @package   Divante\GroupedProductsManager
+ * @author    Marek Mularczyk <mmularczyk@divante.pl>
+ * @copyright 2017 Divante Sp. z o.o.
+ * @license   See LICENSE_DIVANTE.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Grouped product data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\BaseImage
+ * @var $block \Divante\GroupedProductsManager\Block\GroupedProduct\Product\View\Type\Grouped
+ */
+
+$block->setPreconfiguredValue();
+$product               = $block->getProduct();
+$call                  = $block->getAtCall();
+$associatedProducts    = $block->getAssociatedProducts();
+$hasAssociatedProducts = count($associatedProducts) > 0;
+?>
+
+<div class="table-wrapper grouped">
+    <table class="table data grouped" id="super-product-table">
+        <caption class="table-caption"><?php
+            echo __('Grouped product items'); ?></caption>
+        <thead>
+        <tr>
+            <th class="col item" scope="col"><?php
+                echo __('Product Name'); ?></th>
+            <?php if ($product->isSaleable()): ?>
+                <th class="col qty" scope="col"><?php
+                    echo __('Qty'); ?></th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+
+        <?php if ($hasAssociatedProducts): ?>
+            <?php foreach ($associatedProducts as $item): ?>
+                <tbody>
+                <tr>
+                    <td data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>" class="col item">
+                        <strong class="product-item-name"><?php echo $block->escapeHtml($item->getName()); ?></strong>
+                        <?php if ($block->getCanShowProductPrice($product)): ?>
+                            <?php if ($block->getCanShowProductPrice($item)): ?>
+                                <?php
+                                echo $block->getProductPrice($item); ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                    <?php if ($product->isSaleable()): ?>
+                        <td data-th="<?php echo $block->escapeHtml(__('Qty')); ?>" class="col qty">
+                            <?php if ($item->isSaleable()) : ?>
+                                <div class="control qty">
+                                    <input type="number" name="super_group[<?php
+                                    echo $item->getId(); ?>]"
+                                           id="qty_<?php echo $item->getId(); ?>"
+                                           data-selector="super_group[<?php
+                                           echo $item->getId(); ?>]"
+                                           maxlength="12"
+                                           value="<?php
+                                           echo $item->getQty() * 1; ?>"
+                                           title="<?php
+                                           echo __('Qty'); ?>"
+                                           class="input-text qty"
+                                           data-validate="{'validate-grouped-qty':'#super-product-table'}"
+                                           data-errors-message-box="#validation-message-box"/>
+
+                                    <?php if ($block->getModuleConfigHelper()->isEnabledAddToCart()) : ?>
+                                        <?php if ($block->getModuleConfigHelper()->isEnabledAddToCartSimpleProduct()) : ?>
+                                            <button type="button"
+                                                    name="<?php echo $item->getId(); ?>"
+                                                    title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                    class="action tocart primary">
+                                                <span><?php echo $block->escapeHtml(__('Add to Cart')) ?></span>
+                                            </button>
+                                            <script>
+                                                require([
+                                                    "jquery"
+                                                ], function ($) {
+                                                    $('button[name=<?php echo $item->getId() . ']'; ?>').on("click", function () {
+                                                        var form = $('#product_addtocart_form'),
+                                                            qty = form.find('#qty_<?php echo $item->getId(); ?>'),
+                                                            actionUrl = '<?php echo $block->getAddToCartUrl($item); ?>';
+
+                                                        if (qty.val() > 0) {
+                                                            form.attr('action', actionUrl + 'qty/' + qty.val());
+                                                            form.submit();
+                                                        }
+                                                    });
+
+                                                });
+                                            </script>
+                                        <?php else: ?>
+                                            <button type="submit"
+                                                    title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                    class="action tocart primary">
+                                                <span><?php echo $block->escapeHtml(__('Add to Cart')) ?></span>
+                                            </button>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="stock unavailable" title="<?php
+                                echo __('Availability'); ?>">
+                                    <span><?php
+                                        echo __('Out of stock'); ?></span>
+                                    <?php if ($block->getModuleConfigHelper()->isEnabledOutOfStockNotification()) : ?>
+                                        <div class="product alert stock">
+                                            <a href='<?php echo $block->getProductStockAlertUrl($item); ?>'
+                                               title="<?php echo $block->escapeHtml(__('Notify me when in stock')); ?>" class="action alert">
+                                                <?php echo $block->escapeHtml(__('Notify me when in stock')); ?>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+                <?php if ($block->getCanShowProductPrice($product)
+                          && $block->getCanShowProductPrice($item)
+                          && trim($block->getProductPriceHtml(
+                        $item,
+                        \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                    ))
+                ): ?>
+                    <tr class="row-tier-price">
+                        <td colspan="2">
+                            <?php echo $block->getProductPriceHtml(
+                                $item,
+                                \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                            ); ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($block->getModuleConfigHelper()->isEnabledAttributesVisibility()) : ?>
+                    <?php foreach ($block->resolveVisibleAttributes($product, $item) as $code => $values) : ?>
+                        <tr>
+                            <th class="col label"
+                                scope="row"><?php echo $block->escapeHtml(__($values['label'])) ?></th>
+                            <td class="col data" data-th="<?php echo $block->escapeHtml(__($values['label'])) ?>">
+                                <?php echo $block->getOutputHelper()->productAttribute($item, $values['value'],
+                                    $code); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tbody>
+            <tr>
+                <td class="unavailable"
+                    colspan="<?php if ($product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>">
+                    <?php
+                    echo __('No options of this product are available.'); ?>
+                </td>
+            </tr>
+            </tbody>
+        <?php endif; ?>
+    </table>
+</div>
+<div id="validation-message-box"></div>
