@@ -171,17 +171,15 @@ class Grouped extends MagentoGrouped
         /** @var SearchCriteriaBuilder $searchCriteriaBuilder */
         $searchCriteriaBuilder = $this->searchCriteriaBuilderFactory->create();
 
-        $searchCriteriaBuilder->addFilter('entity_type_id', 4, 'eq')
-                              ->create();
+        $searchCriteriaBuilder->addFilter('entity_type_id', 4, 'eq')->create();
+
         $attributes = $this->eavRepository->getList('catalog_product', $searchCriteriaBuilder->create());
 
         $optionAttributes = [];
 
         /** @var \Magento\Catalog\Model\ResourceModel\Eav\Attribute $attribute */
         foreach ($attributes->getItems() as $attribute) {
-            if ((bool)$attribute->getIsVisibleOnFront()) {
-                $optionAttributes[] = ['label' => $attribute->getStoreLabel(), 'value' => $attribute->getId()];
-            }
+            $optionAttributes[] = ['label' => $attribute->getStoreLabel(), 'value' => $attribute->getId()];
         }
 
         return $optionAttributes;
