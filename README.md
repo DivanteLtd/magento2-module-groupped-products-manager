@@ -1,5 +1,4 @@
 # Magento 2 Grouped Products Manager
- 
 Module Grouped Products Manager adds 3 basics features for grouped products:
 
    1) It allows to show specific attributes for each simple product within grouped
@@ -12,44 +11,21 @@ Module Grouped Products Manager adds 3 basics features for grouped products:
 
    3) Adds "Notify me when in stock" link to subscribe notification when specific simple product come back to stock
 
-## Who is developing Grouped Products Manager ?
-<p align="center">
-    <a href="https://divante.co/">
-        <img height="110" src="http://oex.pl/content/uploads/2015/05/logo_Divante-1.jpg">
-    </a>
-</p>
-
-Divante has been delivering the highest quality e-commerce solutions since its inception in 2008. Our main focus is to create the most elegant and effective e-commerce services. We connect the latest technology with a great business approach.
-Visit our website for more information  <a href="https://divante.co/">Divante.co</a> 
-
 ## Compatibility
-* Module was tested on Magento 2.1.7.
+Module was tested on Magento 2.1.7.
 
-## CLI usage:
-* There is no CLI commands.
- 
-## Extensibility
-* Views or features texts/additionals could be extended in view/frontend/templates/product/view/type/grouped.phtml file.
-* Grouped class extends Magento's original block and there are additional functions for proper working. If you want. 
+## Installing/Getting started
+1) `php bin/magento setup:upgrade`
+2) `php bin/magento module:enable Divante_GroupedProductsManager`
+3) configure module in admin panel
 
-## Module API (public methods)
-* Module does not have API
- 
-## Additional information
-* Module installs 1 new attribute for grouped product "products_attributes_visibility", which contains serialized 
-attributes ids for each simple product within grouped.
-* Module contains 2 helper classes (Config and OutOfStock). Config deals with configuration part, and OutOfStock could return 
-url for out of stock notification for given product (both could be extended).
+## Features
 
-## Setup
+![front](README_MEDIA/front.png)
 
-#### Installation details
- 
-* `php bin/magento setup:upgrade`
-* `php bin/magento module:enable Divante_GroupedProductsManager`
+## Configuration
 
 #### Admin configuration
-
 go to admin panel:
 
         stores => 
@@ -59,11 +35,8 @@ go to admin panel:
  
    
  ![admin configuration](README_MEDIA/admin.png)
-    
  
-    
 #### Product attributes checker on grouped product page (admin panel)
-
 go to admin panel :
 
         products => 
@@ -71,16 +44,32 @@ go to admin panel :
                           choose grouped product => 
                                    grouped products tab
                                    
-                                   
+NOTE:
+Attributes must be `Visible on Catalog Pages on Storefront`
+
  ![visible attributes](README_MEDIA/product.png)
     
-    
-#### Features on front
+## Contributing
 
- ![front](README_MEDIA/front.png)
-    
-## License
-* The Grouped Products Manager module is licensed under the terms of the MIT license.
-    
+If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
+
+## Licensing
+
+The code in this project is licensed under the MIT license.
+
 ## Standards & Code Quality
-* This module respects all Magento2 code quality rules and our own PHPCS and PHPMD rulesets.
+
+This module respects all Magento2 code quality rules and our own PHPCS and PHPMD rulesets.
+
+## About Authors
+
+
+![Divante-logo](http://divante.co/logo-HG.png "Divante")
+
+We are a Software House from Europe, existing from 2008 and employing about 150 people. Our core competencies are built around Magento, Pimcore and bespoke software projects (we love Symfony3, Node.js, Angular, React, Vue.js). We specialize in sophisticated integration projects trying to connect hardcore IT with good product design and UX.
+
+We work for Clients like INTERSPORT, ING, Odlo, Onderdelenwinkel and CDP, the company that produced The Witcher game. We develop two projects: [Open Loyalty](http://www.openloyalty.io/ "Open Loyalty") - an open source loyalty program and [Vue.js Storefront](https://github.com/DivanteLtd/vue-storefront "Vue.js Storefront").
+
+We are part of the OEX Group which is listed on the Warsaw Stock Exchange. Our annual revenue has been growing at a minimum of about 30% year on year.
+
+Visit our website [Divante.co](https://divante.co/ "Divante.co") for more information.
