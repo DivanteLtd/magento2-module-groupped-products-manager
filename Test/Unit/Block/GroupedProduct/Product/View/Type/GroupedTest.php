@@ -119,13 +119,18 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         )->disableOriginalConstructor()->getMock();
 
         $this->searchCriteriaBuilderFactoryMock->method('create')
-                                               ->willReturn($this->searchCriteriaBuilderMock);
+            ->willReturn($this->searchCriteriaBuilderMock);
 
         $this->searchCriteriaBuilderMock->method('create')->willReturn($this->searchCriteriaMock);
 
         $this->productAttributeRepositoryMock = $this->getMockBuilder(
             ProductAttributeRepository::class
-        )->disableOriginalConstructor()->setMethods(['getList', 'getItems'])->getMock();
+        )->disableOriginalConstructor()->setMethods(
+            [
+                'getList',
+                'getItems',
+            ]
+        )->getMock();
 
         $this->outputHelperMock = $this->getMockBuilder(
             Output::class
@@ -162,18 +167,18 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         )->disableOriginalConstructor()->getMock();
 
         $this->objectManagerHelper = new ObjectManagerHelper($this);
-        $this->groupedModel        = $this->objectManagerHelper->getObject(
+        $this->groupedModel = $this->objectManagerHelper->getObject(
             Grouped::class,
             [
                 'searchCriteriaBuilderFactory' => $this->searchCriteriaBuilderFactoryMock,
-                'productAttributeRepository'   => $this->productAttributeRepositoryMock,
-                'outputHelper'                 => $this->outputHelperMock,
-                'priceCurrency'                => $this->priceCurrencyMock,
-                'productFactory'               => $this->productFactoryMock,
-                'outOfStoryHelper'             => $this->outOfStockHelperMock,
-                'moduleConfig'                 => $this->moduleConfigMock,
-                'context'                      => $this->contextMock,
-                'arrayUtils'                   => $this->arrayUtilsMock,
+                'productAttributeRepository' => $this->productAttributeRepositoryMock,
+                'outputHelper' => $this->outputHelperMock,
+                'priceCurrency' => $this->priceCurrencyMock,
+                'productFactory' => $this->productFactoryMock,
+                'outOfStoryHelper' => $this->outOfStockHelperMock,
+                'moduleConfig' => $this->moduleConfigMock,
+                'context' => $this->contextMock,
+                'arrayUtils' => $this->arrayUtilsMock,
             ]
         );
     }
@@ -214,7 +219,13 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
     public function testResolveVisibleAttributes($productId)
     {
         $visibleAttributes = 'a:2:{i:1;s:23:"145,146,147,148,149,150";i:2;s:3:"149";}';
-        $attributesValues = [null, 'Żółty', 123.5, ''];
+        $attributesValues =
+            [
+                null,
+                'Żółty',
+                123.5,
+                '',
+            ];
 
         $productMock = $this->getMockBuilder(
             Product::class
@@ -238,10 +249,12 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         if (null !== $productId) {
             $this->productAttributeRepositoryMock->expects($this->once())->method('getList')->willReturnSelf();
             $this->productAttributeRepositoryMock->expects($this->once())
-                                                 ->method('getItems')
-                                                 ->willReturn($this->prepareAttributesCollection(
-                                                     $attributesValues
-                                                 ));
+                ->method('getItems')
+                ->willReturn(
+                    $this->prepareAttributesCollection(
+                        $attributesValues
+                    )
+                );
 
             $this->productMock->expects($this->exactly(count($attributesValues)))->method('hasData');
         }
@@ -272,7 +285,13 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         foreach ($attributeValues as $value) {
             $attributeMock = $this->getMockBuilder(
                 Attribute::class
-            )->disableOriginalConstructor()->setMethods(['getFrontend', 'getValue', 'getStoreLabel'])->getMock();
+            )->disableOriginalConstructor()->setMethods(
+                [
+                    'getFrontend',
+                    'getValue',
+                    'getStoreLabel',
+                ]
+            )->getMock();
 
             $attributeMock->value = $value;
 

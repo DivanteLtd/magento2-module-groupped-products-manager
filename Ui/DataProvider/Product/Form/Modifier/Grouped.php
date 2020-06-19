@@ -50,18 +50,18 @@ class Grouped extends MagentoGrouped
     /**
      * Grouped constructor.
      *
-     * @param LocatorInterface                $locator
-     * @param UrlInterface                    $urlBuilder
-     * @param ProductLinkRepositoryInterface  $productLinkRepository
-     * @param ProductRepositoryInterface      $productRepository
-     * @param ImageHelper                     $imageHelper
-     * @param Status                          $status
+     * @param LocatorInterface $locator
+     * @param UrlInterface $urlBuilder
+     * @param ProductLinkRepositoryInterface $productLinkRepository
+     * @param ProductRepositoryInterface $productRepository
+     * @param ImageHelper $imageHelper
+     * @param Status $status
      * @param AttributeSetRepositoryInterface $attributeSetRepository
-     * @param CurrencyInterface               $localeCurrency
-     * @param AttributeRepositoryInterface    $eavRepository
-     * @param SearchCriteriaBuilderFactory    $searchCriteriaBuilderFactory
-     * @param Config                          $moduleConfig
-     * @param array                           $uiComponentsConfig
+     * @param CurrencyInterface $localeCurrency
+     * @param AttributeRepositoryInterface $eavRepository
+     * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
+     * @param Config $moduleConfig
+     * @param array $uiComponentsConfig
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -79,28 +79,37 @@ class Grouped extends MagentoGrouped
         Config $moduleConfig,
         array $uiComponentsConfig = []
     ) {
-        $this->eavRepository                = $eavRepository;
+        $this->eavRepository = $eavRepository;
         $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
-        $this->moduleConfig                 = $moduleConfig;
+        $this->moduleConfig = $moduleConfig;
 
-        parent::__construct($locator, $urlBuilder, $productLinkRepository, $productRepository, $imageHelper, $status,
-            $attributeSetRepository, $localeCurrency, $uiComponentsConfig);
+        parent::__construct(
+            $locator,
+            $urlBuilder,
+            $productLinkRepository,
+            $productRepository,
+            $imageHelper,
+            $status,
+            $attributeSetRepository,
+            $localeCurrency,
+            $uiComponentsConfig
+        );
     }
 
     /**
      * Insert a value or key/value pair before a specific key in an array.  If key doesn't exist, value is prepended
      * to the beginning of the array.
      *
-     * @param array  $array
+     * @param array $array
      * @param string $key
-     * @param array  $new
+     * @param array $new
      *
      * @return array
      */
     public static function array_insert_before(array $array, $key, array $new)
     {
         $keys = array_keys($array);
-        $pos  = (int)array_search($key, $keys);
+        $pos = (int) array_search($key, $keys);
 
         return array_merge(array_slice($array, 0, $pos), $new, array_slice($array, $pos));
     }
@@ -121,16 +130,16 @@ class Grouped extends MagentoGrouped
                 'arguments' => [
                     'data' => [
                         'config' => [
-                            'dataType'          => Form\Element\DataType\Number::NAME,
-                            'formElement'       => Form\Element\MultiSelect::NAME,
-                            'componentType'     => Form\Field::NAME,
-                            'dataScope'         => 'visible_attributes',
-                            'label'             => __('Visible attributes'),
-                            'fit'               => true,
+                            'dataType' => Form\Element\DataType\Number::NAME,
+                            'formElement' => Form\Element\MultiSelect::NAME,
+                            'componentType' => Form\Field::NAME,
+                            'dataScope' => 'visible_attributes',
+                            'label' => __('Visible attributes'),
+                            'fit' => true,
                             'additionalClasses' => 'admin__field-small',
-                            'sortOrder'         => 85,
-                            'validation'        => [],
-                            'options'           => $this->getVisibleProductAttributes(),
+                            'sortOrder' => 85,
+                            'validation' => [],
+                            'options' => $this->getVisibleProductAttributes(),
                         ],
                     ],
                 ],
@@ -153,7 +162,7 @@ class Grouped extends MagentoGrouped
             return $result;
         }
 
-        $baseProduct                     = $this->productRepository->get($linkItem->getSku());
+        $baseProduct = $this->productRepository->get($linkItem->getSku());
         $visibleAttributesForAllProducts = unserialize($baseProduct->getProductsAttributesVisibility());
 
         if (isset($visibleAttributesForAllProducts[$linkedProduct->getId()])) {
@@ -179,7 +188,11 @@ class Grouped extends MagentoGrouped
 
         /** @var \Magento\Catalog\Model\ResourceModel\Eav\Attribute $attribute */
         foreach ($attributes->getItems() as $attribute) {
-            $optionAttributes[] = ['label' => $attribute->getStoreLabel(), 'value' => $attribute->getId()];
+            $optionAttributes[] =
+                [
+                    'label' => $attribute->getStoreLabel(),
+                    'value' => $attribute->getId(),
+                ];
         }
 
         return $optionAttributes;

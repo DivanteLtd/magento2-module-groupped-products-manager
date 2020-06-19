@@ -32,7 +32,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->objectManagerHelper = new ObjectManagerHelper($this);
-        $this->configModel         = $this->objectManagerHelper->getObject(
+        $this->configModel = $this->objectManagerHelper->getObject(
             Config::class,
             []
         );

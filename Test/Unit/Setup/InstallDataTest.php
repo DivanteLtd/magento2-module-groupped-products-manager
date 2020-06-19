@@ -66,11 +66,11 @@ class InstallDataTest extends \PHPUnit_Framework_TestCase
 
         $this->eavSetupFactoryMock->method('create')->willReturn($this->eavSetupMock);
 
-        $this->setupMock   = $this->getMockBuilder(DataSetup::class)->disableOriginalConstructor()->getMock();
+        $this->setupMock = $this->getMockBuilder(DataSetup::class)->disableOriginalConstructor()->getMock();
         $this->contextMock = $this->getMockBuilder(ModuleContext::class)->disableOriginalConstructor()->getMock();
 
         $this->objectManagerHelper = new ObjectManagerHelper($this);
-        $this->installDataModel    = $this->objectManagerHelper->getObject(
+        $this->installDataModel = $this->objectManagerHelper->getObject(
             InstallData::class,
             ['eavSetupFactory' => $this->eavSetupFactoryMock]
         );

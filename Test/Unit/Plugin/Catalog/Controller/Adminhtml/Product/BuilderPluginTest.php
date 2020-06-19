@@ -44,7 +44,7 @@ class BuilderPluginTest extends \PHPUnit_Framework_TestCase
         $this->moduleConfigMock = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
 
         $this->objectManagerHelper = new ObjectManagerHelper($this);
-        $this->builderPluginModel  = $this->objectManagerHelper->getObject(
+        $this->builderPluginModel = $this->objectManagerHelper->getObject(
             BuilderPlugin::class,
             [
                 'moduleConfig' => $this->moduleConfigMock,
@@ -57,7 +57,7 @@ class BuilderPluginTest extends \PHPUnit_Framework_TestCase
      */
     public function testAroundBuild()
     {
-        $proceed     = $this->prepareProceed();
+        $proceed = $this->prepareProceed();
         $subjectMock = $this->getMockBuilder(MagentoBuilder::class)->disableOriginalConstructor()->getMock();
         $requestMock = $this->getMockBuilder(
             Http::class
@@ -65,21 +65,27 @@ class BuilderPluginTest extends \PHPUnit_Framework_TestCase
 
         $this->moduleConfigMock->expects($this->once())->method('isEnabledAttributesVisibility')->willReturn(true);
         $requestMock->expects($this->once())
-                    ->method('getParam')
-                    ->with('links')
-                    ->willReturn(
-                        [
-                            'associated' => [
-                                0 => [
-                                    'visible_attributes' => ['1', '2', '3'],
-                                    'id'                 => '1',
-                                ],
+            ->method('getParam')
+            ->with('links')
+            ->willReturn(
+                [
+                    'associated' => [
+                        0 => [
+                            'visible_attributes' => [
+                                '1',
+                                '2',
+                                '3',
                             ],
-                        ]
-                    );
+                            'id' => '1',
+                        ],
+                    ],
+                ]
+            );
 
-        $this->assertInstanceOf(Product::class,
-            $this->builderPluginModel->aroundBuild($subjectMock, $proceed, $requestMock));
+        $this->assertInstanceOf(
+            Product::class,
+            $this->builderPluginModel->aroundBuild($subjectMock, $proceed, $requestMock)
+        );
     }
 
     /**

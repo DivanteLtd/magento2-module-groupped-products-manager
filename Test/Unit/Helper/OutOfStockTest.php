@@ -64,8 +64,8 @@ class OutOfStockTest extends \PHPUnit_Framework_TestCase
         $this->outOfStockModel = $this->objectManagerHelper->getObject(
             OutOfStock::class,
             [
-                'context'     => $this->contextMock,
-                'urlHelper'   => $this->urlHelperMock,
+                'context' => $this->contextMock,
+                'urlHelper' => $this->urlHelperMock,
                 '_urlBuilder' => $this->urlBuilderMock,
             ]
         );

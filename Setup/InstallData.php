@@ -38,7 +38,7 @@ class InstallData implements InstallDataInterface
 
     /**
      * @param ModuleDataSetupInterface $setup
-     * @param ModuleContextInterface   $context
+     * @param ModuleContextInterface $context
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
@@ -50,23 +50,23 @@ class InstallData implements InstallDataInterface
             Product::ENTITY,
             'products_attributes_visibility',
             [
-                'group'                   => '',
-                'backend'                 => '',
-                'frontend'                => '',
-                'label'                   => 'Products attributes visibility',
-                'type'                    => 'varchar',
-                'input'                   => 'text',
-                'global'                  => ScopedAttributeInterface::SCOPE_STORE,
-                'visible'                 => false,
-                'required'                => false,
-                'user_defined'            => false,
-                'visible_on_front'        => false,
+                'group' => '',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Products attributes visibility',
+                'type' => 'varchar',
+                'input' => 'text',
+                'global' => ScopedAttributeInterface::SCOPE_STORE,
+                'visible' => false,
+                'required' => false,
+                'user_defined' => false,
+                'visible_on_front' => false,
                 'used_in_product_listing' => false,
-                'is_used_in_grid'         => false,
-                'is_visible_in_grid'      => false,
-                'is_filterable_in_grid'   => false,
-                'sort_order'              => '10',
-                'apply_to'                => Grouped::TYPE_CODE,
+                'is_used_in_grid' => false,
+                'is_visible_in_grid' => false,
+                'is_filterable_in_grid' => false,
+                'sort_order' => '10',
+                'apply_to' => Grouped::TYPE_CODE,
             ]
         );
     }

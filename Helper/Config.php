@@ -48,7 +48,7 @@ class Config extends AbstractHelper
      */
     public function isEnabledAttributesVisibility()
     {
-        return (bool)$this->scopeConfig->getValue(self::CONFIG_ATTRIBUTES_VISIBILITY_XPATH);
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_ATTRIBUTES_VISIBILITY_XPATH);
     }
 
     /**
@@ -56,7 +56,7 @@ class Config extends AbstractHelper
      */
     public function isEnabledAddToCart()
     {
-        return (bool)$this->scopeConfig->getValue(self::CONFIG_ADD_TO_CART_XPATH);
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_ADD_TO_CART_XPATH);
     }
 
     /**
@@ -64,7 +64,7 @@ class Config extends AbstractHelper
      */
     public function isEnabledAddToCartSimpleProduct()
     {
-        return (bool)$this->scopeConfig->getValue(self::CONFIG_ADD_TO_CART_SIMPLE_XPATH);
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_ADD_TO_CART_SIMPLE_XPATH);
     }
 
     /**
@@ -72,6 +72,6 @@ class Config extends AbstractHelper
      */
     public function isEnabledOutOfStockNotification()
     {
-        return (bool)$this->scopeConfig->getValue(self::CONFIG_OUT_OF_STOCK_NOTIFICATION_XPATH);
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_OUT_OF_STOCK_NOTIFICATION_XPATH);
     }
 }

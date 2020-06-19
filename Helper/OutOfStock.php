@@ -27,7 +27,7 @@ class OutOfStock extends AbstractHelper
     /**
      * OutOfStock constructor.
      *
-     * @param Context   $context
+     * @param Context $context
      * @param UrlHelper $urlHelper
      */
     public function __construct(Context $context, UrlHelper $urlHelper)
@@ -47,7 +47,7 @@ class OutOfStock extends AbstractHelper
         return $this->_getUrl(
             'productalert/add/stock',
             [
-                'product_id'                            => $product->getId(),
+                'product_id' => $product->getId(),
                 ActionInterface::PARAM_NAME_URL_ENCODED => $this->urlHelper->getEncodedUrl(),
             ]
         );

@@ -34,16 +34,16 @@ class BuilderPlugin
     }
 
     /**
-     * @param MagentoBuilder   $subject
-     * @param callable         $proceed
+     * @param MagentoBuilder $subject
+     * @param callable $proceed
      * @param RequestInterface $request
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
     public function aroundBuild(MagentoBuilder $subject, callable $proceed, RequestInterface $request)
     {
-        $product           = $proceed($request);
-        $data              = $request->getParam('links');
+        $product = $proceed($request);
+        $data = $request->getParam('links');
         $visibleAttributes = [];
 
         if ($this->moduleConfig->isEnabledAttributesVisibility()

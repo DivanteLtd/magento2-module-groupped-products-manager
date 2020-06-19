@@ -123,7 +123,12 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
 
         $this->searchCriteriaBuilderMock = $this->getMockBuilder(
             SearchCriteriaBuilder::class
-        )->disableOriginalConstructor()->setMethods(['create', 'addFilter'])->getMock();
+        )->disableOriginalConstructor()->setMethods(
+            [
+                'create',
+                'addFilter',
+            ]
+        )->getMock();
 
         $this->searchCriteriaMock = $this->getMockBuilder(
             SearchCriteria::class
@@ -169,21 +174,21 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         )->disableOriginalConstructor()->getMock();
 
         $this->objectManagerHelper = new ObjectManagerHelper($this);
-        $this->groupedModel        = $this->objectManagerHelper->getObject(
+        $this->groupedModel = $this->objectManagerHelper->getObject(
             Grouped::class,
             [
-                'locator'                      => $this->locatorMock,
-                'urlBuilder'                   => $this->urlBuilderMock,
-                'productLinkRepository'        => $this->productLinkRepositoryMock,
-                'productRepository'            => $this->productRepositoryMock,
-                'imageHelper'                  => $this->imageHelperMock,
-                'status'                       => $this->statusMock,
-                'attributeSetRepository'       => $this->attributeSetRepositoryMock,
-                'localeCurrency'               => $this->localeCurrencyMock,
-                'eavRepository'                => $this->eavRepositoryMock,
+                'locator' => $this->locatorMock,
+                'urlBuilder' => $this->urlBuilderMock,
+                'productLinkRepository' => $this->productLinkRepositoryMock,
+                'productRepository' => $this->productRepositoryMock,
+                'imageHelper' => $this->imageHelperMock,
+                'status' => $this->statusMock,
+                'attributeSetRepository' => $this->attributeSetRepositoryMock,
+                'localeCurrency' => $this->localeCurrencyMock,
+                'eavRepository' => $this->eavRepositoryMock,
                 'searchCriteriaBuilderFactory' => $this->searchCriteriaBuilderFactoryMock,
-                'moduleConfig'                 => $this->moduleConfigMock,
-                'uiComponentsConfig'           => [],
+                'moduleConfig' => $this->moduleConfigMock,
+                'uiComponentsConfig' => [],
             ]
         );
     }
@@ -202,7 +207,15 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         $result = ($this->groupedModel)::array_insert_before($arr, 'd', ['c' => 3]);
 
         $this->assertCount(4, $result);
-        $this->assertEquals(['a', 'b', 'c', 'd'], array_keys($result));
+        $this->assertEquals(
+            [
+                'a',
+                'b',
+                'c',
+                'd',
+            ],
+            array_keys($result)
+        );
     }
 
     /**
@@ -222,14 +235,14 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         $this->searchCriteriaBuilderFactoryMock->expects($this->once())->method('create');
 
         $this->searchCriteriaBuilderMock->expects($this->once())
-                                        ->method('addFilter')
-                                        ->with('entity_type_id', 4, 'eq')
-                                        ->willReturnSelf();
+            ->method('addFilter')
+            ->with('entity_type_id', 4, 'eq')
+            ->willReturnSelf();
         $this->searchCriteriaBuilderMock->expects($this->atLeastOnce())->method('create');
 
         $this->eavRepositoryMock->expects($this->once())->method('getList')
-                                ->with('catalog_product', $this->searchCriteriaMock)
-                                ->willReturn($attributesCollection);
+            ->with('catalog_product', $this->searchCriteriaMock)
+            ->willReturn($attributesCollection);
 
 
         $this->assertCount($expectedNumberOfAttributes, $this->groupedModel->getVisibleProductAttributes());
@@ -249,10 +262,16 @@ class GroupedTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < $limit; $i++) {
             $attribute = $this->getMockBuilder(
                 Attribute::class
-            )->disableOriginalConstructor()->setMethods(['getIsVisibleOnFront', 'getStoreLabel', 'getId'])->getMock();
+            )->disableOriginalConstructor()->setMethods(
+                [
+                    'getIsVisibleOnFront',
+                    'getStoreLabel',
+                    'getId',
+                ]
+            )->getMock();
 
             $attribute->label = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
-            $attribute->id    = $i;
+            $attribute->id = $i;
 
             $attribute->method('getIsVisibleOnFront')->willReturn(true);
             $attribute->method('getStoreLabel')->willReturn($attribute->label);

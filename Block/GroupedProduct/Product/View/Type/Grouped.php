@@ -66,16 +66,16 @@ class Grouped extends MagentoGrouped
     /**
      * Grouped constructor.
      *
-     * @param SearchCriteriaBuilderFactory        $searchCriteriaBuilderFactory
+     * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
      * @param ProductAttributeRepositoryInterface $productAttributeRepository
-     * @param Output                              $outputHelper
-     * @param PriceCurrencyInterface              $priceCurrency
-     * @param ProductFactory                      $productFactory
-     * @param OutOfStock                          $outOfStockHelper
-     * @param Config                              $moduleConfig
-     * @param Context                             $context
-     * @param ArrayUtils                          $arrayUtils
-     * @param array                               $data
+     * @param Output $outputHelper
+     * @param PriceCurrencyInterface $priceCurrency
+     * @param ProductFactory $productFactory
+     * @param OutOfStock $outOfStockHelper
+     * @param Config $moduleConfig
+     * @param Context $context
+     * @param ArrayUtils $arrayUtils
+     * @param array $data
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -92,12 +92,12 @@ class Grouped extends MagentoGrouped
         array $data = []
     ) {
         $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
-        $this->productAttributeRepository   = $productAttributeRepository;
-        $this->outputHelper                 = $outputHelper;
-        $this->priceCurrency                = $priceCurrency;
-        $this->productFactory               = $productFactory;
-        $this->moduleConfig                 = $moduleConfig;
-        $this->outOfStockHelper             = $outOfStockHelper;
+        $this->productAttributeRepository = $productAttributeRepository;
+        $this->outputHelper = $outputHelper;
+        $this->priceCurrency = $priceCurrency;
+        $this->productFactory = $productFactory;
+        $this->moduleConfig = $moduleConfig;
+        $this->outOfStockHelper = $outOfStockHelper;
 
         parent::__construct($context, $arrayUtils, $data);
     }
@@ -114,7 +114,7 @@ class Grouped extends MagentoGrouped
         $productModel = $this->productFactory->create();
         $item->getResource()->load($productModel, $item->getId());
 
-        $output            = [];
+        $output = [];
         $visibleAttributes = unserialize($product->getProductsAttributesVisibility());
 
         if (!isset($visibleAttributes[$item->getId()])) {
@@ -133,7 +133,7 @@ class Grouped extends MagentoGrouped
 
             if (!$productModel->hasData($attribute->getAttributeCode())) {
                 $value = __('N/A');
-            } elseif ((string)$value == '') {
+            } elseif ((string) $value == '') {
                 $value = __('No');
             } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
                 $value = $this->priceCurrency->convertAndFormat($value);
